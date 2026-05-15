@@ -1,0 +1,133 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Median Income by State and Territory, 2022-23",
+    "subtitle": "Total personal income median for Australian earners. Source: ABS Personal Income in Australia, Table 1.1.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 430,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/australian-states.geojson",
+    "format": {
+      "type": "json",
+      "property": "features"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.properties.STATE_NAME || datum.properties.STATE || datum.properties.name || datum.properties.NAME",
+      "as": "state"
+    },
+    {
+      "lookup": "state",
+      "from": {
+        "data": {
+          "url": "data/abs_income_state_2022_23.csv",
+          "format": {
+            "type": "csv",
+            "parse": {
+              "median_income_2022_23": "number",
+              "mean_income_2022_23": "number",
+              "earners_2022_23": "number"
+            }
+          }
+        },
+        "key": "state",
+        "fields": [
+          "state_abbr",
+          "median_income_2022_23",
+          "mean_income_2022_23",
+          "earners_2022_23"
+        ]
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator",
+    "center": [
+      134,
+      -28
+    ],
+    "scale": 620,
+    "translate": [
+      340,
+      215
+    ]
+  },
+  "mark": {
+    "type": "geoshape",
+    "stroke": "#ffffff",
+    "strokeWidth": 1.2
+  },
+  "encoding": {
+    "color": {
+      "field": "median_income_2022_23",
+      "type": "quantitative",
+      "title": "Median income",
+      "scale": {
+        "scheme": "tealblues",
+        "domain": [
+          53000,
+          76000
+        ]
+      },
+      "legend": {
+        "orient": "bottom",
+        "format": "$,.0f",
+        "gradientLength": 260
+      }
+    },
+    "tooltip": [
+      {
+        "field": "state",
+        "type": "nominal",
+        "title": "State/Territory"
+      },
+      {
+        "field": "state_abbr",
+        "type": "nominal",
+        "title": "Abbreviation"
+      },
+      {
+        "field": "median_income_2022_23",
+        "type": "quantitative",
+        "title": "Median income",
+        "format": "$,.0f"
+      },
+      {
+        "field": "mean_income_2022_23",
+        "type": "quantitative",
+        "title": "Mean income",
+        "format": "$,.0f"
+      },
+      {
+        "field": "earners_2022_23",
+        "type": "quantitative",
+        "title": "Earners",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333"
+    }
+  }
+}
