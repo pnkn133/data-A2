@@ -1,0 +1,9 @@
+series,series_short,series_type,comparison_year,income_reference_year,amount
+National median personal income,National median,ABS Income,2023,2021-22,55062
+National median personal income,National median,ABS Income,2024,2022-23,58216
+Undergraduate median full-time salary,Undergrad,QILT GOS,2023,2023,71000
+Undergraduate median full-time salary,Undergrad,QILT GOS,2024,2024,75000
+Postgraduate coursework median full-time salary,PG coursework,QILT GOS,2023,2023,96600
+Postgraduate coursework median full-time salary,PG coursework,QILT GOS,2024,2024,100000
+Postgraduate research median full-time salary,PG research,QILT GOS,2023,2023,100000
+Postgraduate research median full-time salary,PG research,QILT GOS,2024,2024,104400

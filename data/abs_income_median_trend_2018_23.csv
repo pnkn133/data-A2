@@ -1,0 +1,46 @@
+state,state_abbr,region_type,year,median_income
+Australia,AUS,National,2018-19,49096
+Australia,AUS,National,2019-20,50103
+Australia,AUS,National,2020-21,52925
+Australia,AUS,National,2021-22,55062
+Australia,AUS,National,2022-23,58216
+New South Wales,NSW,State/Territory,2018-19,49522
+New South Wales,NSW,State/Territory,2019-20,50567
+New South Wales,NSW,State/Territory,2020-21,53905
+New South Wales,NSW,State/Territory,2021-22,55105
+New South Wales,NSW,State/Territory,2022-23,58909
+Victoria,VIC,State/Territory,2018-19,48801
+Victoria,VIC,State/Territory,2019-20,49848
+Victoria,VIC,State/Territory,2020-21,52218
+Victoria,VIC,State/Territory,2021-22,54708
+Victoria,VIC,State/Territory,2022-23,57907
+Queensland,QLD,State/Territory,2018-19,47905
+Queensland,QLD,State/Territory,2019-20,48920
+Queensland,QLD,State/Territory,2020-21,51557
+Queensland,QLD,State/Territory,2021-22,54076
+Queensland,QLD,State/Territory,2022-23,56708
+South Australia,SA,State/Territory,2018-19,47939
+South Australia,SA,State/Territory,2019-20,48616
+South Australia,SA,State/Territory,2020-21,50976
+South Australia,SA,State/Territory,2021-22,53353
+South Australia,SA,State/Territory,2022-23,55782
+Western Australia,WA,State/Territory,2018-19,51886
+Western Australia,WA,State/Territory,2019-20,52907
+Western Australia,WA,State/Territory,2020-21,56415
+Western Australia,WA,State/Territory,2021-22,59426
+Western Australia,WA,State/Territory,2022-23,62207
+Tasmania,TAS,State/Territory,2018-19,45009
+Tasmania,TAS,State/Territory,2019-20,45809
+Tasmania,TAS,State/Territory,2020-21,48161
+Tasmania,TAS,State/Territory,2021-22,50645
+Tasmania,TAS,State/Territory,2022-23,53479
+Northern Territory,NT,State/Territory,2018-19,57683
+Northern Territory,NT,State/Territory,2019-20,58310
+Northern Territory,NT,State/Territory,2020-21,62409
+Northern Territory,NT,State/Territory,2021-22,65301
+Northern Territory,NT,State/Territory,2022-23,66831
+Australian Capital Territory,ACT,State/Territory,2018-19,64941
+Australian Capital Territory,ACT,State/Territory,2019-20,66705
+Australian Capital Territory,ACT,State/Territory,2020-21,69743
+Australian Capital Territory,ACT,State/Territory,2021-22,72115
+Australian Capital Territory,ACT,State/Territory,2022-23,75643

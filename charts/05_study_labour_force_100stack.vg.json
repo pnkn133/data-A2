@@ -1,0 +1,190 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Many Students Are Also in the Labour Force",
+    "subtitle": "Current study status by labour force status, Australia, May 2025. Source: ABS Education and Work, Table 1.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 280,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/abs_study_status_labour_force_2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "status_order": "number",
+        "study_status_order": "number",
+        "percentage": "number",
+        "persons_000": "number",
+        "total_population_000": "number"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "height": 34
+      },
+      "encoding": {
+        "x": {
+          "field": "percentage",
+          "type": "quantitative",
+          "title": "Share of people in each labour force group",
+          "stack": "zero",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ]
+          },
+          "axis": {
+            "format": ".0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "labour_force_status",
+          "type": "ordinal",
+          "title": null,
+          "sort": {
+            "field": "status_order",
+            "order": "ascending"
+          },
+          "axis": {
+            "labelLimit": 160
+          }
+        },
+        "color": {
+          "field": "study_status",
+          "type": "nominal",
+          "title": "Study status",
+          "scale": {
+            "domain": [
+              "Currently studying",
+              "Not currently studying"
+            ],
+            "range": [
+              "#1f7a8c",
+              "#d8ded8"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleLimit": 220,
+            "labelLimit": 220
+          }
+        },
+        "order": {
+          "field": "study_status_order",
+          "type": "ordinal"
+        },
+        "tooltip": [
+          {
+            "field": "labour_force_status",
+            "type": "nominal",
+            "title": "Labour force status"
+          },
+          {
+            "field": "study_status",
+            "type": "nominal",
+            "title": "Study status"
+          },
+          {
+            "field": "percentage",
+            "type": "quantitative",
+            "title": "Share",
+            "format": ".1f"
+          },
+          {
+            "field": "persons_000",
+            "type": "quantitative",
+            "title": "People ('000)",
+            "format": ",.1f"
+          },
+          {
+            "field": "total_population_000",
+            "type": "quantitative",
+            "title": "Group total ('000)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.study_status == 'Currently studying'"
+        },
+        {
+          "calculate": "format(datum.percentage, '.1f') + '% studying'",
+          "as": "label"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "percentage",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ]
+          }
+        },
+        "y": {
+          "field": "labour_force_status",
+          "type": "ordinal",
+          "sort": {
+            "field": "status_order",
+            "order": "ascending"
+          }
+        },
+        "text": {
+          "field": "label"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "symbolType": "square"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

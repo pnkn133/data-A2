@@ -87,24 +87,145 @@
         </p>
         <div id="chart-01" class="vis"></div>
       </section>
+
+      <section>
+        <h2>The Income Benchmark Is Higher in Some Places</h2>
+        <p class="note">
+          Ranking the same 2022-23 median income values makes the gap easier to compare. The ACT,
+          Northern Territory, and Western Australia sit above the national median, while Tasmania
+          is furthest below it.
+        </p>
+        <div id="chart-02" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>The Benchmark Has Been Moving Up</h2>
+        <p class="note">
+          Median income rose in every state and territory between 2018-19 and 2022-23. This matters
+          for the university question because graduate salaries need to be compared with a baseline
+          that is also rising.
+        </p>
+        <div id="chart-03" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Study Is Concentrated Before Age 25</h2>
+        <p class="note">
+          Education participation is highest among teenagers and people in their early twenties, then
+          falls quickly across every state and territory. This places the university decision early in
+          adult life, before many people reach their highest earning years.
+        </p>
+        <div id="chart-04" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Study Often Happens Alongside Work</h2>
+        <p class="note">
+          Studying is not only a full-time student experience. In 2025, part-time employed and
+          unemployed Australians were much more likely to be currently studying than full-time
+          employed Australians, showing how education often overlaps with labour-market transition.
+        </p>
+        <div id="chart-05" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Degree Completion Shows Up Most in Mid-Career Ages</h2>
+        <p class="note">
+          The completed degree profile is different from the study participation profile. Bachelor
+          degree attainment is lower in the early twenties, then rises sharply for people aged 25 to
+          44, where completed qualifications have had time to accumulate.
+        </p>
+        <div id="chart-06" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Graduate Employment Weakened After 2023</h2>
+        <p class="note">
+          Graduate outcomes remain strong, especially for postgraduate coursework graduates, but the
+          2024 survey shows a softer full-time employment result across undergraduate, postgraduate
+          coursework, and postgraduate research graduates.
+        </p>
+        <div id="chart-07" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Some Fields Convert to Full-Time Work Faster</h2>
+        <p class="note">
+          The graduate employment payoff is not uniform across degrees. In 2024, rehabilitation,
+          pharmacy, medicine, teacher education, nursing, engineering, and dentistry sat well above
+          the undergraduate average, while creative arts and communications were much lower.
+        </p>
+        <div id="chart-08" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>Graduate Salaries Clear the National Benchmark</h2>
+        <p class="note">
+          Salary is the clearest short-term payoff measure. Even undergraduate median full-time
+          graduate salaries sat above the national median personal income benchmark, while
+          postgraduate salaries were much higher again.
+        </p>
+        <div id="chart-09" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>The Salary Premium Is Substantial</h2>
+        <p class="note">
+          Expressing salary as a gap makes the payoff easier to read. In 2024, the undergraduate
+          median full-time salary was about $16,800 above the national median, while postgraduate
+          outcomes were more than $40,000 higher.
+        </p>
+        <div id="chart-10" class="vis"></div>
+      </section>
+
+      <section>
+        <h2>So, Is a University Degree Still Worth It?</h2>
+        <p class="note">
+          Overall, the evidence suggests that a university degree still has value in Australia,
+          especially when measured through graduate salaries and employment outcomes. Graduate
+          median full-time salaries sit above the national median income, and some study areas,
+          such as rehabilitation, pharmacy, medicine, nursing, teaching, engineering, and dentistry,
+          convert strongly into full-time work.
+        </p>
+        <p class="note">
+          However, the value of a degree is not automatic. Income differs across states, study
+          participation is shaped by age and work status, and graduate outcomes vary heavily by
+          field and qualification level. A degree can improve employment and earning prospects,
+          but students still need to consider what they study, where they live, and whether the
+          expected salary premium is worth the time and cost of higher education.
+        </p>
+      </section>
     </main>
 
     <script>
       const siteBase = window.location.href.slice(0, window.location.href.lastIndexOf("/") + 1);
 
-      vegaEmbed("#chart-01", "charts/01_median_income_map.vg.json", {
-        actions: false,
-        loader: {
-          baseURL: siteBase
-        }
-      }).catch(function(error) {
-        const chart = document.querySelector("#chart-01");
-        chart.textContent = "Chart failed to load: " + error.message;
-        chart.style.color = "#9b1c1c";
-        chart.style.padding = "16px";
-        chart.style.background = "#fff4f4";
-        console.error(error);
-      });
+      function embedChart(selector, specUrl) {
+        vegaEmbed(selector, specUrl, {
+          actions: false,
+          loader: {
+            baseURL: siteBase
+          }
+        }).catch(function(error) {
+          const chart = document.querySelector(selector);
+          chart.textContent = "Chart failed to load: " + error.message;
+          chart.style.color = "#9b1c1c";
+          chart.style.padding = "16px";
+          chart.style.background = "#fff4f4";
+          console.error(error);
+        });
+      }
+
+      embedChart("#chart-01", "charts/01_median_income_map.vg.json");
+      embedChart("#chart-02", "charts/02_income_ranking_bar.vg.json");
+      embedChart("#chart-03", "charts/03_income_trend_line.vg.json");
+      embedChart("#chart-04", "charts/04_study_participation_heatmap.vg.json");
+      embedChart("#chart-05", "charts/05_study_labour_force_100stack.vg.json");
+      embedChart("#chart-06", "charts/06_bachelor_attainment_lollipop.vg.json");
+      embedChart("#chart-07", "charts/07_graduate_fulltime_employment_line.vg.json");
+      embedChart("#chart-08", "charts/08_undergraduate_fte_by_study_area_bar.vg.json");
+      embedChart("#chart-09", "charts/09_salary_vs_national_income_line.vg.json");
+      embedChart("#chart-10", "charts/10_salary_advantage_gap_bar.vg.json");
     </script>
   </body>
 </html>

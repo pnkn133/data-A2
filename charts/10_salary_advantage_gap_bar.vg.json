@@ -1,0 +1,195 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "The Graduate Salary Advantage Is Largest After Postgraduate Study",
+    "subtitle": "Dollar gap between 2024 QILT median full-time graduate salaries and the ABS 2022-23 national median personal income of $58,216.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 220,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/qilt_salary_advantage_2024.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "graduate_salary_2024": "number",
+        "national_median_income_2022_23": "number",
+        "salary_advantage": "number",
+        "advantage_pct": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "'+' + '$' + format(datum.salary_advantage, ',.0f') + ' (' + format(datum.advantage_pct, '.1f') + '%)'",
+      "as": "advantage_label"
+    }
+  ],
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {
+            "zero": 0
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#333333",
+        "strokeWidth": 1.4
+      },
+      "encoding": {
+        "x": {
+          "field": "zero",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 3,
+        "height": 32
+      },
+      "encoding": {
+        "x": {
+          "field": "salary_advantage",
+          "type": "quantitative",
+          "title": "Salary advantage over national median ($)",
+          "scale": {
+            "domain": [
+              0,
+              62000
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": "$,.0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "course_level",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+            "field": "salary_advantage",
+            "order": "descending"
+          },
+          "axis": {
+            "labelLimit": 210
+          }
+        },
+        "color": {
+          "field": "course_level",
+          "type": "nominal",
+          "legend": null,
+          "scale": {
+            "domain": [
+              "Undergraduate",
+              "Postgraduate coursework",
+              "Postgraduate research"
+            ],
+            "range": [
+              "#1f7a8c",
+              "#a463f2",
+              "#d68a59"
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "course_level",
+            "type": "nominal",
+            "title": "Course level"
+          },
+          {
+            "field": "graduate_salary_2024",
+            "type": "quantitative",
+            "title": "Graduate salary 2024",
+            "format": "$,.0f"
+          },
+          {
+            "field": "national_median_income_2022_23",
+            "type": "quantitative",
+            "title": "National median income",
+            "format": "$,.0f"
+          },
+          {
+            "field": "salary_advantage",
+            "type": "quantitative",
+            "title": "Salary advantage",
+            "format": "$,.0f"
+          },
+          {
+            "field": "advantage_pct",
+            "type": "quantitative",
+            "title": "Advantage above median",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "salary_advantage",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              62000
+            ],
+            "nice": false
+          }
+        },
+        "y": {
+          "field": "course_level",
+          "type": "nominal",
+          "sort": {
+            "field": "salary_advantage",
+            "order": "descending"
+          }
+        },
+        "text": {
+          "field": "advantage_label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

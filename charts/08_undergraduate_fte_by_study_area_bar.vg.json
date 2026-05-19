@@ -1,0 +1,258 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Graduate Employment Depends Strongly on Field of Study",
+    "subtitle": "Undergraduate full-time employment by study area, 2024. Dashed line marks the undergraduate total: 74.0%. Source: QILT Graduate Outcomes Survey 2024.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 620,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/qilt_undergraduate_fte_by_study_area_2024.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "full_time_employment_2023": "number",
+        "full_time_employment_2024": "number",
+        "change_pp": "number",
+        "overall_employment_2024": "number",
+        "labour_force_participation_2024": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.full_time_employment_2024 >= 74 ? 'At/above undergraduate total' : 'Below undergraduate total'",
+      "as": "benchmark_status"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "full_time_employment_2024",
+          "type": "quantitative",
+          "title": "Full-time employment (%)",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": ".0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "study_area",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+            "field": "full_time_employment_2024",
+            "order": "descending"
+          },
+          "axis": {
+            "labelLimit": 235
+          }
+        },
+        "color": {
+          "field": "benchmark_status",
+          "type": "nominal",
+          "title": "Compared with total",
+          "scale": {
+            "domain": [
+              "At/above undergraduate total",
+              "Below undergraduate total"
+            ],
+            "range": [
+              "#1f7a8c",
+              "#d68a59"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleLimit": 220,
+            "labelLimit": 240
+          }
+        },
+        "tooltip": [
+          {
+            "field": "study_area",
+            "type": "nominal",
+            "title": "Study area"
+          },
+          {
+            "field": "full_time_employment_2024",
+            "type": "quantitative",
+            "title": "Full-time employment 2024",
+            "format": ".1f"
+          },
+          {
+            "field": "full_time_employment_2023",
+            "type": "quantitative",
+            "title": "Full-time employment 2023",
+            "format": ".1f"
+          },
+          {
+            "field": "change_pp",
+            "type": "quantitative",
+            "title": "Change from 2023",
+            "format": "+.1f"
+          },
+          {
+            "field": "overall_employment_2024",
+            "type": "quantitative",
+            "title": "Overall employment 2024",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "undergraduate_total": 74
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#333333",
+        "strokeDash": [
+          5,
+          4
+        ],
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "x": {
+          "field": "undergraduate_total",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.full_time_employment_2024 < 90"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 6,
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "full_time_employment_2024",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ],
+            "nice": false
+          }
+        },
+        "y": {
+          "field": "study_area",
+          "type": "nominal",
+          "sort": {
+            "field": "full_time_employment_2024",
+            "order": "descending"
+          }
+        },
+        "text": {
+          "field": "full_time_employment_2024",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.full_time_employment_2024 >= 90"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -6,
+        "fontSize": 11,
+        "fontWeight": 700,
+        "color": "#ffffff"
+      },
+      "encoding": {
+        "x": {
+          "field": "full_time_employment_2024",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              100
+            ],
+            "nice": false
+          }
+        },
+        "y": {
+          "field": "study_area",
+          "type": "nominal",
+          "sort": {
+            "field": "full_time_employment_2024",
+            "order": "descending"
+          }
+        },
+        "text": {
+          "field": "full_time_employment_2024",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "symbolType": "square"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

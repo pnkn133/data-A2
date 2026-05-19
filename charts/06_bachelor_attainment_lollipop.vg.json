@@ -1,0 +1,180 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Bachelor Degree Attainment Peaks in Mid-Career Ages",
+    "subtitle": "Share of Australians whose highest non-school qualification is bachelor degree level or above, May 2025. Source: ABS Education and Work, Table 34.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 340,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/abs_bachelor_attainment_age_2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "age_order": "number",
+        "bachelor_or_above_pct": "number",
+        "persons_000": "number",
+        "total_population_000": "number"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 3,
+        "color": "#bfd7d9"
+      },
+      "encoding": {
+        "x": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "bachelor_or_above_pct",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "age_group",
+          "type": "ordinal",
+          "title": "Age group",
+          "sort": {
+            "field": "age_order",
+            "order": "ascending"
+          }
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 150,
+        "stroke": "#ffffff",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "x": {
+          "field": "bachelor_or_above_pct",
+          "type": "quantitative",
+          "title": "Bachelor degree or above (%)",
+          "scale": {
+            "domain": [
+              0,
+              55
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": ".0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "age_group",
+          "type": "ordinal",
+          "title": "Age group",
+          "sort": {
+            "field": "age_order",
+            "order": "ascending"
+          }
+        },
+        "color": {
+          "condition": {
+            "test": "datum.bachelor_or_above_pct >= 45",
+            "value": "#1f7a8c"
+          },
+          "value": "#d68a59",
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "age_group",
+            "type": "ordinal",
+            "title": "Age group"
+          },
+          {
+            "field": "bachelor_or_above_pct",
+            "type": "quantitative",
+            "title": "Bachelor degree or above",
+            "format": ".1f"
+          },
+          {
+            "field": "persons_000",
+            "type": "quantitative",
+            "title": "People ('000)",
+            "format": ",.1f"
+          },
+          {
+            "field": "total_population_000",
+            "type": "quantitative",
+            "title": "Age group total ('000)",
+            "format": ",.1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 9,
+        "fontSize": 12,
+        "fontWeight": 700,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "bachelor_or_above_pct",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              0,
+              55
+            ],
+            "nice": false
+          }
+        },
+        "y": {
+          "field": "age_group",
+          "type": "ordinal",
+          "sort": {
+            "field": "age_order",
+            "order": "ascending"
+          }
+        },
+        "text": {
+          "field": "bachelor_or_above_pct",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

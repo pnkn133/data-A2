@@ -1,0 +1,221 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Median Income Rose Across Australia, 2018-19 to 2022-23",
+    "subtitle": "Australia's median rose by $9,120 over five years. Source: ABS Personal Income in Australia, Table 1.1.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 360,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/abs_income_median_trend_2018_23.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "median_income": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.year == '2022-23' && (datum.state_abbr == 'ACT' || datum.state_abbr == 'AUS' || datum.state_abbr == 'TAS') ? datum.state_abbr + ' $' + format(datum.median_income, ',.0f') : ''",
+      "as": "end_label"
+    }
+  ],
+  "layer": [
+    {
+      "transform": [
+        {
+          "filter": "datum.region_type == 'State/Territory'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 42
+        },
+        "strokeWidth": 2.2
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal",
+          "title": "Financial year",
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "median_income",
+          "type": "quantitative",
+          "title": "Median income",
+          "scale": {
+            "domain": [
+              44000,
+              79000
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": "$,.0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "color": {
+          "field": "state_abbr",
+          "type": "nominal",
+          "title": "State/Territory",
+          "scale": {
+            "range": [
+              "#4269d0",
+              "#efb118",
+              "#ff725c",
+              "#6cc5b0",
+              "#3ca951",
+              "#ff8ab7",
+              "#a463f2",
+              "#97bbf5"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "columns": 4
+          }
+        },
+        "detail": {
+          "field": "state",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "median_income",
+            "type": "quantitative",
+            "title": "Median income",
+            "format": "$,.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.region_type == 'National'"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 70
+        },
+        "strokeWidth": 4,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "median_income",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "Series"
+          },
+          {
+            "field": "year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "median_income",
+            "type": "quantitative",
+            "title": "Median income",
+            "format": "$,.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.end_label != ''"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -8,
+        "fontSize": 11,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "x": {
+          "field": "year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "median_income",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "end_label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.region_type == 'National'",
+            "value": "#202124"
+          },
+          "value": "#555f63"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

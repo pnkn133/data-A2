@@ -1,0 +1,9 @@
+labour_force_status,status_order,study_status,study_status_order,percentage,persons_000,total_population_000
+Employed full-time,1,Currently studying,1,7.7,768.2,9931.2
+Employed full-time,1,Not currently studying,2,92.3,9163.0,9931.2
+Employed part-time,2,Currently studying,1,29.6,1322.9,4472.6
+Employed part-time,2,Not currently studying,2,70.4,3149.7,4472.6
+Unemployed,3,Currently studying,1,30.3,182.3,600.7
+Unemployed,3,Not currently studying,2,69.7,418.4,600.7
+Not in labour force,4,Currently studying,1,20.1,1017.4,5055.9
+Not in labour force,4,Not currently studying,2,79.9,4038.5,5055.9

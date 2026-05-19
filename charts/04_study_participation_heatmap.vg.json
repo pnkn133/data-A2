@@ -1,0 +1,156 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Study Participation Drops Sharply After the Early Twenties",
+    "subtitle": "People currently enrolled in study by age and state/territory, May 2025. Source: ABS Education and Work, Table 11.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 330,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/abs_current_study_age_state_2025.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "state_order": "number",
+        "age_order": "number",
+        "study_participation_pct": "number"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "#ffffff",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "x": {
+          "field": "age_group",
+          "type": "ordinal",
+          "title": "Age group",
+          "sort": {
+            "field": "age_order",
+            "order": "ascending"
+          },
+          "axis": {
+            "labelAngle": 0,
+            "labelLimit": 80
+          }
+        },
+        "y": {
+          "field": "state_abbr",
+          "type": "ordinal",
+          "title": "State/Territory",
+          "sort": {
+            "field": "state_order",
+            "order": "ascending"
+          }
+        },
+        "color": {
+          "field": "study_participation_pct",
+          "type": "quantitative",
+          "title": "Currently enrolled",
+          "scale": {
+            "scheme": "tealblues",
+            "domain": [
+              0,
+              90
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "format": ".0f",
+            "title": "Currently enrolled (%)",
+            "gradientLength": 260
+          }
+        },
+        "tooltip": [
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "age_group",
+            "type": "ordinal",
+            "title": "Age group"
+          },
+          {
+            "field": "study_participation_pct",
+            "type": "quantitative",
+            "title": "Currently enrolled",
+            "format": ".1f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 11,
+        "fontWeight": 600
+      },
+      "encoding": {
+        "x": {
+          "field": "age_group",
+          "type": "ordinal",
+          "sort": {
+            "field": "age_order",
+            "order": "ascending"
+          }
+        },
+        "y": {
+          "field": "state_abbr",
+          "type": "ordinal",
+          "sort": {
+            "field": "state_order",
+            "order": "ascending"
+          }
+        },
+        "text": {
+          "field": "study_participation_pct",
+          "type": "quantitative",
+          "format": ".0f"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.study_participation_pct >= 45",
+            "value": "#ffffff"
+          },
+          "value": "#243133"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "domain": false,
+      "ticks": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

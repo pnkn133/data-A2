@@ -1,0 +1,213 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "State and Territory Income Ranking, 2022-23",
+    "subtitle": "Dashed line marks the Australia median: $58,216. Source: ABS Personal Income in Australia, Table 1.1.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 320,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/abs_income_state_2022_23.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "median_income_2022_23": "number",
+        "mean_income_2022_23": "number",
+        "earners_2022_23": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "median_income_2022_23",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.median_income_2022_23 - 58216",
+      "as": "difference_from_australia"
+    },
+    {
+      "calculate": "datum.median_income_2022_23 >= 58216 ? 'At/above Australia median' : 'Below Australia median'",
+      "as": "benchmark_status"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "cornerRadiusEnd": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "median_income_2022_23",
+          "type": "quantitative",
+          "title": "Median income",
+          "scale": {
+            "domain": [
+              0,
+              88000
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": "$,.0f",
+            "grid": true,
+            "tickCount": 6
+          }
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "title": null,
+          "sort": {
+            "field": "median_income_2022_23",
+            "order": "descending"
+          },
+          "axis": {
+            "labelLimit": 180
+          }
+        },
+        "color": {
+          "field": "benchmark_status",
+          "type": "nominal",
+          "title": "Compared with Australia median",
+          "scale": {
+            "domain": [
+              "At/above Australia median",
+              "Below Australia median"
+            ],
+            "range": [
+              "#1f7a8c",
+              "#d68a59"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "horizontal",
+            "titleLimit": 260,
+            "labelLimit": 220
+          }
+        },
+        "tooltip": [
+          {
+            "field": "rank",
+            "type": "ordinal",
+            "title": "Rank"
+          },
+          {
+            "field": "state",
+            "type": "nominal",
+            "title": "State/Territory"
+          },
+          {
+            "field": "median_income_2022_23",
+            "type": "quantitative",
+            "title": "Median income",
+            "format": "$,.0f"
+          },
+          {
+            "field": "difference_from_australia",
+            "type": "quantitative",
+            "title": "Difference from Australia median",
+            "format": "+$,.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 8,
+        "fontSize": 12,
+        "fontWeight": 600,
+        "color": "#202124"
+      },
+      "encoding": {
+        "x": {
+          "field": "median_income_2022_23",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal",
+          "sort": {
+            "field": "median_income_2022_23",
+            "order": "descending"
+          }
+        },
+        "text": {
+          "field": "median_income_2022_23",
+          "type": "quantitative",
+          "format": "$,.0f"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "national_median": 58216
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#333333",
+        "strokeDash": [
+          5,
+          4
+        ],
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "x": {
+          "field": "national_median",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "symbolType": "square"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}

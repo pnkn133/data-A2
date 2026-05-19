@@ -1,0 +1,10 @@
+course_level,course_level_short,year,full_time_employment_pct,overall_employment_pct,labour_force_participation_pct
+Undergraduate,UG,2022,78.5,88.3,92.4
+Undergraduate,UG,2023,79.0,88.9,92.5
+Undergraduate,UG,2024,74.0,86.9,92.6
+Postgraduate coursework,PGC,2022,89.4,93.3,95.6
+Postgraduate coursework,PGC,2023,90.3,93.9,95.6
+Postgraduate coursework,PGC,2024,88.1,92.7,95.4
+Postgraduate research,PGR,2022,84.7,91.9,94.8
+Postgraduate research,PGR,2023,85.3,91.4,95.2
+Postgraduate research,PGR,2024,82.8,90.5,95.1

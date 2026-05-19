@@ -1,0 +1,220 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Graduate Salaries Sit Above the National Median",
+    "subtitle": "Median annual full-time graduate salaries, 2023-2024, compared with ABS national median personal income. ABS income years use the latest available 2021-22 and 2022-23 values.",
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 12,
+    "subtitleColor": "#555"
+  },
+  "width": 680,
+  "height": 380,
+  "background": "#ffffff",
+  "data": {
+    "url": "data/qilt_salary_vs_abs_income_2023_24.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "comparison_year": "number",
+        "amount": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.comparison_year == 2024 ? datum.series_short + ' ' + '$' + format(datum.amount, ',.0f') : ''",
+      "as": "end_label"
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "point": {
+          "filled": true,
+          "size": 82
+        },
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "comparison_year",
+          "type": "ordinal",
+          "title": "Comparison year",
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative",
+          "title": "Median annual income or salary ($)",
+          "scale": {
+            "domain": [
+              50000,
+              110000
+            ],
+            "nice": false
+          },
+          "axis": {
+            "format": "$,.0f",
+            "grid": true,
+            "tickCount": 7
+          }
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "title": "Measure",
+          "scale": {
+            "domain": [
+              "National median personal income",
+              "Undergraduate median full-time salary",
+              "Postgraduate coursework median full-time salary",
+              "Postgraduate research median full-time salary"
+            ],
+            "range": [
+              "#555f63",
+              "#1f7a8c",
+              "#a463f2",
+              "#d68a59"
+            ]
+          },
+          "legend": {
+            "orient": "bottom",
+            "direction": "vertical",
+            "titleLimit": 180,
+            "labelLimit": 360
+          }
+        },
+        "strokeDash": {
+          "field": "series_type",
+          "type": "nominal",
+          "title": "Source type",
+          "scale": {
+            "domain": [
+              "ABS Income",
+              "QILT GOS"
+            ],
+            "range": [
+              [
+                6,
+                4
+              ],
+              [
+                1,
+                0
+              ]
+            ]
+          },
+          "legend": null
+        },
+        "detail": {
+          "field": "series",
+          "type": "nominal"
+        },
+        "tooltip": [
+          {
+            "field": "series",
+            "type": "nominal",
+            "title": "Measure"
+          },
+          {
+            "field": "series_type",
+            "type": "nominal",
+            "title": "Source"
+          },
+          {
+            "field": "comparison_year",
+            "type": "ordinal",
+            "title": "Comparison year"
+          },
+          {
+            "field": "income_reference_year",
+            "type": "nominal",
+            "title": "Original reference year"
+          },
+          {
+            "field": "amount",
+            "type": "quantitative",
+            "title": "Amount",
+            "format": "$,.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.end_label != ''"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 10,
+        "fontSize": 11,
+        "fontWeight": 700
+      },
+      "encoding": {
+        "x": {
+          "field": "comparison_year",
+          "type": "ordinal"
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "end_label"
+        },
+        "color": {
+          "field": "series",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "National median personal income",
+              "Undergraduate median full-time salary",
+              "Postgraduate coursework median full-time salary",
+              "Postgraduate research median full-time salary"
+            ],
+            "range": [
+              "#555f63",
+              "#1f7a8c",
+              "#a463f2",
+              "#d68a59"
+            ]
+          },
+          "legend": null
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Inter, Arial, sans-serif",
+    "axis": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333",
+      "gridColor": "#e5e8e2",
+      "domain": false
+    },
+    "legend": {
+      "labelFont": "Inter, Arial, sans-serif",
+      "titleFont": "Inter, Arial, sans-serif",
+      "labelColor": "#333",
+      "titleColor": "#333"
+    },
+    "title": {
+      "font": "Inter, Arial, sans-serif",
+      "fontWeight": 700,
+      "color": "#202124"
+    }
+  }
+}
